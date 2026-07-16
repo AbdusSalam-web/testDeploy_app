@@ -35,9 +35,7 @@ export const AuthProvider = ({ children }) => {
     };
     try {
       const response = await axios.get(`${URL}/auth/user`, config);
-      console.log("🚀 ~ authenticateUser ~ response:", response);
-
-      if (response.statusText === "OK") {
+      if (response.statusText === 200) {
         setCurrentUser(response.data);
       }
     } catch (error) {
