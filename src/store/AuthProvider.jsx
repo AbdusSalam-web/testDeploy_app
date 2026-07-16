@@ -28,33 +28,49 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const authenticateUser = async () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      setLoading(true);
-      const response = await axios.get(`${URL}/auth/user`, config);
-      console.log("🚀 ~ authenticateUser ~ response:", response);
-      if (response.status === 200) {
-        setLoading(false);
-        setCurrentUser(response.data);
-      }
-    } catch (error) {
-      console.log("Error fetching user data.");
-    } finally {
-      setLoading(true);
-    }
+const authenticateUser = async () => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
-  useEffect(() => {
+
+  try {
+    setLoading(true);
+
+    const response = await axios.get(`${URL}/auth/user`, config);
+
+    console.log("authenticateUser response:", response);
+
+    if (response.status === 200) {
+      setCurrentUser(response.data);
+    }
+  } catch (error) {
+    console.log("Error fetching user data.", error);
+    setCurrentUser(null);
+  } finally {
+    setLoading(false);
+  }
+};
+useEffect(() => {
+  if (token) {
     authenticateUser();
-  }, []);
+  } else {
+    setLoading(false);
+  }
+}, [token]);
 
   return (
     <AuthContext.Provider
-      value={{ URL, setTokenToLS, token, logOutUser, currentUser }}
+      value={{
+        URL,
+        setTokenToLS,
+        token,
+        logOutUser,
+        currentUser,
+        loading,
+        isLoggedIn,
+      }}
     >
       {children}
     </AuthContext.Provider>
