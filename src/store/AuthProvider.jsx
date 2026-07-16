@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   const isLoggedIn = !!token;
   const URL =
-    import.meta.env.VITE_URL || 'https://app.netlify.com/teams/mukto-sm25/projects';
+    import.meta.env.VITE_URL || 'https://testdeployapi-production.up.railway.app/api';
   const setTokenToLS = async (data) => {
     try {
       await localStorage.setItem("Token", data);
