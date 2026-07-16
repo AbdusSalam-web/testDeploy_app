@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       const response = await axios.get(`${URL}/auth/user`, config);
       console.log("🚀 ~ authenticateUser ~ response:", response);
-      if (response.statusText === 200) {
+      if (response.status === 200) {
         setLoading(false);
         setCurrentUser(response.data);
       }
