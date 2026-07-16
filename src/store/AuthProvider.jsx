@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   const isLoggedIn = !!token;
   const URL =
-    import.meta.env.VITE_URL || 'https://testdeployapi-production.up.railway.app/api';
+    import.meta.env.VITE_URL ;
   const setTokenToLS = async (data) => {
     try {
       await localStorage.setItem("Token", data);
